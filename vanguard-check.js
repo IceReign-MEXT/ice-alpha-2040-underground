@@ -1,38 +1,36 @@
-// IceReign-MEXT: Vanguard Connection Test (V3 Resilience)
 const { Connection } = require("@solana/web3.js");
+const TelegramBot = require('node-telegram-bot-api');
 require('dotenv').config();
 
-async function checkNetwork() {
-    // Extracting the full URL from your .env
-    const rpcUrl = process.env.RPC_URL;
+async function runDiagnostic() {
+    console.log("🔍 RUNNING SYSTEM DIAGNOSTIC...");
 
-    if (!rpcUrl || !rpcUrl.startsWith('http')) {
-        console.error("❌ ARCHITECT ERROR: RPC_URL is invalid in .env");
+    const token = process.env.TELEGRAM_BOT_TOKEN;
+    if (!token) {
+        console.log("❌ ERROR: TELEGRAM_BOT_TOKEN is undefined in .env");
         return;
     }
 
-    // Creating a direct connection to the Solana cluster via Helius
-    const connection = new Connection(rpcUrl, 'confirmed');
+    console.log(`📡 PROBING TOKEN: ${token.substring(0, 4)}...${token.substring(token.length - 4)} (Length: ${token.length})`);
 
+    // 1. Test Solana RPC
     try {
-        console.log("📡 INITIATING VANGUARD SCAN...");
+        const conn = new Connection(process.env.RPC_URL);
+        const version = await conn.getVersion();
+        console.log("✅ SOLANA RPC: CONNECTED (Version: " + version['solana-core'] + ")");
+    } catch (e) { console.log("❌ SOLANA RPC: FAILED - " + e.message); }
 
-        // Fetching recent performance samples to calculate TPS manually
-        const samples = await connection.getRecentPerformanceSamples(1);
-        const tps = samples[0].numTransactions / samples[0].samplePeriodSecs;
-        const slot = await connection.getSlot();
-
-        console.log("------------------------------------");
-        console.log("🛡️ VANGUARD ENGINE: ONLINE");
-        console.log(`📡 NETWORK SLOT: ${slot}`);
-        console.log(`⚡ CURRENT TPS: ${Math.round(tps)}`);
-        console.log("🔐 STATUS: FORTRESS SECURED");
-        console.log("------------------------------------");
-    } catch (error) {
-        console.error("❌ CONNECTION BREACHED:", error.message);
-        console.log("TIP: Ensure your .env has RPC_URL=https://mainnet.helius-rpc.com/?api-key=your-key");
+    // 2. Test Telegram Bot
+    try {
+        const bot = new TelegramBot(token);
+        const me = await bot.getMe();
+        console.log(`✅ TELEGRAM BOT: CONNECTED (@${me.username})`);
+    } catch (e) { 
+        console.log(`❌ TELEGRAM BOT: FAILED (Code: ${e.code || 'Unknown'})`);
+        if (e.message.includes('404')) {
+            console.log("💡 HINT: The library is building an invalid URL. Ensure no 'bot' prefix is in the .env value.");
+        }
     }
 }
 
-checkNetwork();
-
+runDiagnostic();

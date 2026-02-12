@@ -1,56 +1,28 @@
-const {
-    Connection,
-    PublicKey,
-    Keypair,
-    Transaction
-} = require("@solana/web3.js");
-const {
-    createBurnInstruction,
-    getOrCreateAssociatedTokenAccount
-} = require("@solana/spl-token");
-const bs58 = require("bs58");
+const { Connection, PublicKey, Keypair, Transaction, sendAndConfirmTransaction } = require("@solana/web3.js");
+const { createBurnCheckedInstruction, getAssociatedTokenAddress } = require("@solana/spl-token");
 require('dotenv').config();
 
-async function burnTokens(tokenMintAddress, amount) {
-    const connection = new Connection(process.env.RPC_URL, 'confirmed');
+const connection = new Connection(process.env.RPC_URL, "confirmed");
+const secretKey = Uint8Array.from(JSON.parse(process.env.PRIVATE_KEY_JSON || "[]"));
+const architect = Keypair.fromSecretKey(secretKey);
 
-    // Load the Architect's Key
-    const secretKey = bs58.decode(process.env.PRIVATE_KEY);
-    const wallet = Keypair.fromSecretKey(secretKey);
+async function burnLiquidity(lpMintAddress) {
+    console.log("🔥 INITIATING LIQUIDITY SELF-DESTRUCT...");
+    const lpMint = new PublicKey(lpMintAddress);
+    const ata = await getAssociatedTokenAddress(lpMint, architect.publicKey);
+    
+    // Get full balance to burn everything
+    const accountInfo = await connection.getTokenAccountBalance(ata);
+    
+    const burnIx = createBurnCheckedInstruction(
+        ata, lpMint, architect.publicKey, accountInfo.value.amount, accountInfo.value.decimals
+    );
 
-    console.log(`🔥 INITIATING BURN SEQUENCE FOR: ${tokenMintAddress}`);
-
-    try {
-        const mintPublicKey = new PublicKey(tokenMintAddress);
-
-        // 1. Find the token account holding your tokens
-        const account = await getOrCreateAssociatedTokenAccount(
-            connection,
-            wallet,
-            mintPublicKey,
-            wallet.publicKey
-        );
-
-        // 2. Create the Burn Instruction
-        // Amount must be multiplied by 10^decimals (e.g., for 9 decimals, 1 token = 1000000000)
-        const burnIx = createBurnInstruction(
-            account.address,
-            mintPublicKey,
-            wallet.publicKey,
-            amount
-        );
-
-        const tx = new Transaction().add(burnIx);
-        const signature = await connection.sendTransaction(tx, [wallet]);
-
-        console.log("------------------------------------");
-        console.log("🔥 BURN COMPLETE. LPs PERMANENTLY LOCKED.");
-        console.log(`📜 SIGNATURE: ${signature}`);
-        console.log("------------------------------------");
-    } catch (error) {
-        console.error("❌ BURN FAILED:", error.message);
-    }
+    const tx = new Transaction().add(burnIx);
+    const signature = await sendAndConfirmTransaction(connection, tx, [architect]);
+    console.log(`❄️ LIQUIDITY FROZEN FOREVER: ${signature}`);
 }
 
-// Note: To run this, you'd call burnTokens("MINT_ADDRESS", AMOUNT);
-
+// Usage: node burn-logic.js <LP_MINT_ADDRESS>
+if (process.argv[2]) burnLiquidity(process.argv[2]);
+else console.log("⚠️ Provide the LP Mint Address to burn.");

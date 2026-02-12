@@ -8,50 +8,53 @@ http.createServer((req, res) => { res.write("Vanguard Active"); res.end(); }).li
 
 const token = '8411660040:AAGCo3vLM0gNvm1CZMTXhc23Q0IbxgNaiNA';
 const channelId = '-1003844332949';
+const dashboardUrl = 'https://ice-alpha-2040-underground.vercel.app';
 const bot = new TelegramBot(token, {polling: true});
 const connection = new Connection("https://mainnet.helius-rpc.com/?api-key=91d5e3ce-6390-4096-8195-b988ed14400d");
 const architectWallet = new PublicKey("3KJZZxQ7yYNLqNzsxN33x1V3pav2nRybtXXrBpNm1Zqf");
 
-const memes = [
-    "Me watching the 0.014 SOL target like it's the last bus out of the Matrix. 🧊",
-    "Fiat is just a bad joke, and $ICE is the punchline. ❄️",
-    "They said I'm early. I told them I'm the Architect. 🏗️",
-    "The 4% loop isn't a glitch. It's the design. 🌀"
-];
+console.log("🧊 VANGUARD AUTOPILOT: ONLINE");
 
-// --- AUTOPILOT JOBS ---
+// 1. AUTOMATIC WELCOME (When anyone joins the group)
+bot.on('message', (msg) => {
+    if (msg.new_chat_members) {
+        msg.new_chat_members.forEach((user) => {
+            const welcomeMsg = `❄️ **WELCOME TO THE ICE-CHAMBER, ${user.first_name}!**\n\n` +
+                               `You have entered the 2040 Underground Loop. Monitor our progress and the Architect's wallet here:\n\n` +
+                               `🔗 **LIVE DASHBOARD:** ${dashboardUrl}\n\n` +
+                               `*The Forge is warming up.*`;
+            bot.sendMessage(msg.chat.id, welcomeMsg, { parse_mode: 'Markdown' });
+        });
+    }
+});
 
-// 1. Every 6 Hours: The "Underground Daily" Newspaper & Balance Proof
+// 2. AUTOMATIC NEWSPAPER (Every 6 Hours)
 cron.schedule('0 */6 * * *', async () => {
     try {
         const balance = await connection.getBalance(architectWallet);
         const sol = balance / 1e9;
-        const randomMeme = memes[Math.floor(Math.random() * memes.length)];
         
         const report = `🗞️ **THE UNDERGROUND DAILY** 🗞️\n\n` +
-                       `**HEADLINE:** ARCHITECT STATUS REPORT\n` +
+                       `**HEADLINE:** ARCHITECT SOL BALANCE VERIFIED\n` +
                        `--------------------------------\n` +
-                       `• **Current Balance:** ${sol.toFixed(4)} SOL\n` +
+                       `• **Current Proof:** ${sol.toFixed(4)} SOL\n` +
                        `• **Target:** 0.014 SOL\n` +
-                       `• **Vibe Check:** ${randomMeme}\n\n` +
-                       `*Automated by Vanguard 2040. Stay cold.*`;
+                       `• **Live Data:** [View Dashboard](${dashboardUrl})\n\n` +
+                       `*This is an automated blockchain verification.*`;
         
-        bot.sendMessage(channelId, report, { parse_mode: 'Markdown' });
-        console.log("📡 Autopilot: Newspaper delivered.");
+        bot.sendMessage(channelId, report, { parse_mode: 'Markdown', disable_web_page_preview: true });
     } catch (err) {
-        console.error("Autopilot Error:", err);
+        console.error("Autopilot News Error:", err);
     }
 });
 
-console.log("🧊 VANGUARD AUTOPILOT: ONLINE");
-
-// Commands
-bot.onText(/\/status/, (msg) => {
-    bot.sendMessage(msg.chat.id, "✅ Vanguard System: Active 24/7 on Autopilot.");
-});
-
-// Real-time Watcher (Instant alert if balance moves)
+// 3. INSTANT WALLET ALERTS
 connection.onAccountChange(architectWallet, (info) => {
     const sol = info.lamports / 1e9;
-    bot.sendMessage(channelId, `⚠️ **LIVE INTEL:** Wallet balance changed to ${sol.toFixed(4)} SOL.`);
+    bot.sendMessage(channelId, `⚠️ **LIVE INTEL:** Wallet Activity! Balance: ${sol.toFixed(4)} SOL.`);
 }, "confirmed");
+
+// Manual Status Command
+bot.onText(/\/status/, (msg) => {
+    bot.sendMessage(msg.chat.id, "✅ Vanguard System: 24/7 Autopilot Engaged.");
+});

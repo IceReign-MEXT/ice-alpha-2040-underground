@@ -1,14 +1,14 @@
 {
-  "name": "ice-alpha-2040",
+  "name": "ice-vanguard-bot",
   "version": "1.0.0",
-  "description": "Underground Bypass 2040 System",
+  "description": "Vanguard System 2040",
   "main": "ice-chamber-watcher.js",
+  "dependencies": {
+    "node-telegram-bot-api": "^0.66.0",
+    "@solana/web3.js": "^1.95.3",
+    "dotenv": "^16.4.5"
+  },
   "scripts": {
     "start": "node ice-chamber-watcher.js"
-  },
-  "dependencies": {
-    "@solana/web3.js": "^1.95.3",
-    "node-telegram-bot-api": "^0.66.0",
-    "dotenv": "^16.4.5"
   }
 }

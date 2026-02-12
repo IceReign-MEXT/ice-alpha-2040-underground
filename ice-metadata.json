@@ -1,0 +1,12 @@
+{
+  "name": "IceAlpha",
+  "symbol": "ICE",
+  "description": "The cold, calculated leader of the Solana tundra. Built by the Architect for the elite.",
+  "image": "https://gateway.pinata.cloud/ipfs/QmZ...your_image_hash...",
+  "attributes": [
+    { "trait_type": "Tier", "value": "Alpha" },
+    { "trait_type": "Origin", "value": "Industrial Forge" }
+  ]
+}
+
+

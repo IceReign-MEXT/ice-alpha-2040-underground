@@ -1,21 +1,4 @@
-# 🧊 Secrets - DO NOT LEAK
-.env
-*.pem
-*.key
-
-# 🧱 Dependencies
 node_modules/
-dist/
-build/
-.cache/
-
-# 🐍 Python
-__pycache__/
-*.py[cod]
-*$py.class
-venv/
-ENV/
-
-# 📡 OS Files
+.env
 .DS_Store
-Thumbs.db
+package-lock.json

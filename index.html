@@ -6,56 +6,51 @@
     <title>THE ARCHITECT | VANGUARD 2040</title>
     <script src="https://terminal.jup.ag/main-v3.js" data-preload></script>
     <style>
-        :root { --neon: #00f2ff; --bg: #050505; --card: rgba(0, 242, 255, 0.07); }
-        body { background: var(--bg); color: #fff; font-family: 'Courier New', monospace; margin: 0; overflow-x: hidden; }
-        .nav { display: flex; justify-content: center; gap: 20px; padding: 20px; border-bottom: 1px solid var(--neon); background: #000; position: sticky; top: 0; z-index: 100; }
-        .nav-link { color: var(--neon); text-decoration: none; font-weight: bold; cursor: pointer; text-transform: uppercase; font-size: 0.8rem; }
-        .section { display: none; padding: 40px 20px; max-width: 900px; margin: 0 auto; animation: fadeIn 0.5s; }
+        :root { --neon: #00f2ff; --bg: #050505; --card: rgba(0, 242, 255, 0.08); }
+        body { background: var(--bg); color: #fff; font-family: 'Courier New', monospace; margin: 0; text-align: center; }
+        .nav { display: flex; justify-content: center; gap: 30px; padding: 20px; border-bottom: 1px solid var(--neon); background: #000; position: sticky; top: 0; z-index: 100; }
+        .nav-link { color: var(--neon); text-decoration: none; font-weight: bold; cursor: pointer; text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; transition: 0.3s; }
+        .nav-link:hover { text-shadow: 0 0 10px var(--neon); }
+        .section { display: none; padding: 60px 20px; max-width: 900px; margin: 0 auto; animation: fadeIn 0.4s; }
         .active { display: block; }
-        .hero-text { font-size: 1.2rem; border-left: 3px solid var(--neon); padding-left: 15px; text-align: left; line-height: 1.8; }
-        .card { border: 1px solid var(--neon); padding: 25px; background: var(--card); margin-bottom: 20px; position: relative; }
-        .badge { position: absolute; top: -10px; right: 10px; background: var(--neon); color: #000; padding: 2px 10px; font-size: 0.7rem; font-weight: bold; }
-        #integrated-terminal { width: 100%; max-width: 420px; height: 500px; margin: 20px auto; border: 1px solid var(--neon); }
+        .card { border: 1px solid var(--neon); padding: 30px; background: var(--card); text-align: left; line-height: 1.6; position: relative; }
+        .badge { position: absolute; top: -10px; right: 20px; background: var(--neon); color: #000; padding: 2px 12px; font-size: 0.7rem; font-weight: bold; }
+        #integrated-terminal { width: 100%; max-width: 420px; height: 550px; margin: 20px auto; border: 1px solid var(--neon); border-radius: 8px; }
+        .highlight { color: var(--neon); }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .highlight { color: var(--neon); text-shadow: 0 0 5px var(--neon); }
     </style>
 </head>
 <body>
 
 <div class="nav">
-    <div class="nav-link" onclick="show('forge')">The Forge</div>
-    <div class="nav-link" onclick="show('lore')">The Lore</div>
-    <div class="nav-link" onclick="show('vanguard')">Community</div>
+    <a class="nav-link" onclick="show('forge')">The Forge</a>
+    <a class="nav-link" onclick="show('lore')">The Lore</a>
+    <a class="nav-link" onclick="show('vanguard')">Vanguard</a>
 </div>
 
 <div id="forge" class="section active">
-    <h2 class="highlight">SYSTEM: ONLINE</h2>
-    <div class="hero-text">
-        WALLET: 3KJZZ...Nm1Zqf<br>
-        STATUS: <span class="highlight">FORGED IN TERMUX</span><br>
-        BYPASS: 0.014 SOL TARGET
-    </div>
+    <h2 class="highlight">ARCHITECT INTERFACE v3.1</h2>
+    <p>SYSTEM STATUS: <span class="highlight">FORGED IN TERMUX // LIVE</span></p>
     <div id="integrated-terminal"></div>
 </div>
 
 <div id="lore" class="section">
-    <h2 class="highlight">[ ARCHIVE_2040 ]</h2>
+    <h2 class="highlight">[ DECRYPTED_FILE_2040 ]</h2>
     <div class="card">
-        <span class="badge">DECRYPTED</span>
-        <p>The year is 2040. Centralized systems have collapsed into "The Great Freeze." Only those who learned the <b>Underground Bypass</b> survived.</p>
-        <p>This isn't just a token. It's a key to the school. We teach you how to build your own weapons, run your own nodes, and bypass the ghosts of the old web.</p>
-        <p class="highlight">> JOIN THE RESISTANCE. STAY COLD.</p>
+        <span class="badge">ORIGIN</span>
+        <p>The "Great Freeze" of 2026 wasn't an accident. It was the end of centralized control. While the world panicked, the <b>Underground</b> began building the Bypass.</p>
+        <p>You are looking at the terminal. This is where we track the treasury, educate the students, and sharpen the $ICE protocol. We aren't here to play—we're here to outlast the winter.</p>
     </div>
 </div>
 
 <div id="vanguard" class="section">
     <h2 class="highlight">VANGUARD ROSTER</h2>
     <div class="card">
-        <h3>The Founding 10</h3>
-        <p>1. The Architect <span class="highlight">[ROOT]</span></p>
-        <p>2. Awaiting Signal...</p>
-        <p>3. Awaiting Signal...</p>
-        <p><i>The first 10 students to provide liquidity become the Vanguard.</i></p>
+        <p>1. <span class="highlight">THE ARCHITECT</span> [FOUNDER]</p>
+        <p>2. <span class="highlight">MEX ROBERT</span> [INITIATE]</p>
+        <p>3. AWAITING SIGNAL...</p>
+        <p>4. AWAITING SIGNAL...</p>
+        <p style="margin-top: 30px; font-size: 0.8rem; opacity: 0.7;"><i>// The first 10 students to complete the liquidity loop become the founding Vanguard.</i></p>
     </div>
 </div>
 

@@ -1,15 +1,15 @@
 {
-  "name": "ice-vanguard-bot",
-  "version": "1.0.0",
-  "description": "Vanguard System 2040 - Underground Bot",
+  "name": "ice-alpha-vanguard",
+  "version": "3.2.0",
+  "description": "Vanguard 2040 Underground Bot",
   "main": "ice-chamber-watcher.js",
   "scripts": {
     "start": "node ice-chamber-watcher.js"
   },
   "dependencies": {
-    "@solana/web3.js": "^1.95.3",
-    "dotenv": "^16.4.5",
-    "node-cron": "^4.2.1",
-    "node-telegram-bot-api": "^0.66.0"
+    "node-telegram-bot-api": "^0.64.0",
+    "node-cron": "^3.0.3",
+    "@solana/web3.js": "^1.87.0",
+    "dotenv": "^16.3.1"
   }
 }

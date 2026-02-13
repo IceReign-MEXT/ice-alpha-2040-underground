@@ -3,29 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ICE-ALPHA 2040 | THE LORE</title>
+    <title>THE ARCHITECT | VANGUARD 2040</title>
     <script src="https://terminal.jup.ag/main-v3.js" data-preload></script>
     <style>
-        :root { --neon: #00f2ff; --bg: #050505; }
-        body { background: var(--bg); color: #fff; font-family: 'Courier New', monospace; padding: 20px; text-align: center; }
-        .lore-section { max-width: 700px; margin: 40px auto; text-align: left; border-left: 2px solid var(--neon); padding-left: 20px; line-height: 1.6; }
-        .highlight { color: var(--neon); font-weight: bold; }
-        .stat-bar { border: 1px solid var(--neon); padding: 10px; margin: 20px 0; display: inline-block; }
-        #integrated-terminal { width: 100%; max-width: 420px; height: 560px; margin: 20px auto; border: 1px solid var(--neon); border-radius: 12px; }
+        :root { --neon: #00f2ff; --bg: #050505; --card: rgba(0, 242, 255, 0.05); }
+        body { background: var(--bg); color: #fff; font-family: 'Courier New', monospace; margin: 0; padding: 20px; text-align: center; }
+        .hero { padding: 60px 20px; border-bottom: 1px solid var(--neon); }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; max-width: 1000px; margin: 40px auto; }
+        .card { border: 1px solid var(--neon); padding: 20px; background: var(--card); text-align: left; }
+        .card h3 { color: var(--neon); margin-top: 0; }
+        .badge { background: var(--neon); color: #000; padding: 2px 8px; font-size: 0.7rem; font-weight: bold; }
+        #integrated-terminal { width: 100%; max-width: 420px; height: 580px; margin: 20px auto; border: 1px solid var(--neon); border-radius: 12px; }
+        .highlight { color: var(--neon); }
     </style>
 </head>
 <body>
-    <h1>VANGUARD 2040: THE BYPASS</h1>
-    
-    <div class="stat-bar">MISSION: PROTOCOL 0.014 SOL</div>
-
-    <div class="lore-section">
-        <h3>[ TRANSMISSION 001 ]</h3>
-        <p>The year is <span class="highlight">2040</span>. The old financial grids have frozen. The world is rugged, controlled by ghost devs and empty promises.</p>
-        <p>The <span class="highlight">ICE-ALPHA</span> system was forged in the underground to provide a cold, hard bypass. We don't ask for permission. We build the forge.</p>
-        <p>This dashboard is your interface. The <span class="highlight">$ICE</span> token is the fuel. Secure your position before the final freeze.</p>
+    <div class="hero">
+        <h1>ARCHITECT INTERFACE v2.1</h1>
+        <p>SYSTEM STATUS: <span class="highlight">SECURE & OPERATIONAL</span></p>
     </div>
 
+    <div class="grid">
+        <div class="card">
+            <span class="badge">ACTIVE</span>
+            <h3>ICE-CHAMBER BOT</h3>
+            <p>Automated Telegram engine with wallet-tracking, 2-hour loop autopilot, and anti-rug security logic.</p>
+        </div>
+
+        <div class="card">
+            <span class="badge">LORE</span>
+            <h3>2040 UNDERGROUND</h3>
+            <p>A decentralized education platform for the "Bypass" generation. Learning to build in a rugged world.</p>
+        </div>
+
+        <div class="card">
+            <span class="badge">DEVELOPMENT</span>
+            <h3>$ICE TOKENOMICS</h3>
+            <p>Target Treasury: 0.014 SOL. Built on Helius RPC with full metadata transparency.</p>
+        </div>
+    </div>
+
+    <h2>THE FORGE TERMINAL</h2>
     <div id="integrated-terminal"></div>
 
     <script>

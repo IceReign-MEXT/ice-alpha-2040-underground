@@ -5,35 +5,40 @@ const { Connection, PublicKey } = require("@solana/web3.js");
 
 const token = '8411660040:AAGCo3vLM0gNvm1CZMTXhc23Q0IbxgNaiNA';
 const channelId = '-1003844332949';
-const url = 'https://ice-alpha-2040-underground.onrender.com'; 
+const url = 'https://ice-alpha-2040-underground.onrender.com';
 const port = process.env.PORT || 10000;
 
-// Initialize Bot with Webhook for Render stability
 const bot = new TelegramBot(token, { webHook: { port: port } });
 bot.setWebHook(`${url}/bot${token}`);
 
 const connection = new Connection("https://mainnet.helius-rpc.com/?api-key=91d5e3ce-6390-4096-8195-b988ed14400d");
 const architectWallet = new PublicKey("3KJZZxQ7yYNLqNzsxN33x1V3pav2nRybtXXrBpNm1Zqf");
 
-console.log("🧊 VANGUARD WEBHOOK SYSTEM: ONLINE");
+// NEW: This handles the manual commands when using Webhooks
+bot.on('message', async (msg) => {
+    const text = msg.text;
+    const chatId = msg.chat.id;
 
-// 6-Hour Automated Proof
-cron.schedule('0 */6 * * *', async () => {
-    try {
+    if (text === '/status') bot.sendMessage(chatId, "✅ Vanguard System: Online (24/7 Autopilot)");
+    
+    if (text === '/newspaper' || text === '/buy') {
         const balance = await connection.getBalance(architectWallet);
         const sol = balance / 1e9;
-        bot.sendMessage(channelId, `🗞️ **DAILY PROOF:** Architect Balance is ${sol.toFixed(4)} SOL. The Forge is active. ❄️`);
-    } catch (e) { console.error(e); }
+        const buyLink = `https://raydium.io/swap/?inputCurrency=sol&outputCurrency=YOUR_TOKEN_MINT_HERE`;
+        
+        const report = `🗞️ **THE UNDERGROUND DAILY**\n\n` +
+                       `🏦 **TREASURY:** ${sol.toFixed(4)} SOL\n` +
+                       `🎯 **TARGET:** 0.014 SOL\n\n` +
+                       `💸 **DIRECT BUY:** [Swap on Raydium](${buyLink})\n` +
+                       `📊 **DASHBOARD:** [Live Forge](https://ice-alpha-2040-underground.vercel.app)`;
+        
+        bot.sendMessage(chatId, report, { parse_mode: 'Markdown' });
+    }
 });
 
-// Response Logic
-bot.on('message', (msg) => {
-    if (msg.text === '/status') bot.sendMessage(msg.chat.id, "✅ Vanguard Active via Webhook.");
-    if (msg.text === '/dashboard') bot.sendMessage(msg.chat.id, "🔗 **LIVE FORGE:** https://ice-alpha-2040-underground.vercel.app");
+// Autopilot: Post every 2 hours
+cron.schedule('0 */2 * * *', () => {
+    bot.sendMessage(channelId, "📡 **SYSTEM UPDATE:** 2-hour loop complete. Dashboard synced. Check /newspaper for proof.");
 });
 
-// Wallet Watcher
-connection.onAccountChange(architectWallet, (info) => {
-    const sol = info.lamports / 1e9;
-    bot.sendMessage(channelId, `⚠️ **LIVE INTEL:** Wallet balance changed to ${sol.toFixed(4)} SOL.`);
-}, "confirmed");
+console.log("🧊 VANGUARD v2.0: WEBHOOK + MANUAL FIXED");

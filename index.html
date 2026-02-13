@@ -6,50 +6,208 @@
     <title>THE ARCHITECT | VANGUARD 2040</title>
     <script src="https://terminal.jup.ag/main-v3.js" data-preload></script>
     <style>
-        :root { --neon: #00f2ff; --bg: #050505; --card: rgba(0, 242, 255, 0.08); }
-        body { background: var(--bg); color: #fff; font-family: 'Courier New', monospace; margin: 0; text-align: center; }
-        .nav { display: flex; justify-content: center; gap: 30px; padding: 20px; border-bottom: 1px solid var(--neon); background: #000; position: sticky; top: 0; z-index: 100; }
-        .nav-link { color: var(--neon); text-decoration: none; font-weight: bold; cursor: pointer; text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; }
-        .section { display: none; padding: 60px 20px; max-width: 900px; margin: 0 auto; animation: fadeIn 0.4s; }
+        :root { 
+            --neon: #00f2ff; 
+            --bg: #050505; 
+            --card: rgba(0, 242, 255, 0.08); 
+            --dim: rgba(255, 255, 255, 0.5);
+        }
+
+        body { 
+            background: var(--bg); 
+            color: #fff; 
+            font-family: 'Courier New', monospace; 
+            margin: 0; 
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        /* NAVIGATION */
+        .nav { 
+            display: flex; 
+            justify-content: center; 
+            gap: 30px; 
+            padding: 20px; 
+            border-bottom: 1px solid var(--neon); 
+            background: #000; 
+            position: sticky; 
+            top: 0; 
+            z-index: 100; 
+        }
+
+        .nav-link { 
+            color: var(--neon); 
+            text-decoration: none; 
+            font-weight: bold; 
+            cursor: pointer; 
+            text-transform: uppercase; 
+            letter-spacing: 2px; 
+            font-size: 0.8rem; 
+            transition: 0.3s;
+        }
+
+        .nav-link:hover { 
+            text-shadow: 0 0 10px var(--neon); 
+            letter-spacing: 4px;
+        }
+
+        /* SECTIONS */
+        .section { 
+            display: none; 
+            padding: 60px 20px; 
+            max-width: 900px; 
+            margin: 0 auto; 
+            animation: fadeIn 0.4s ease-in-out; 
+        }
+
         .active { display: block; }
-        .card { border: 1px solid var(--neon); padding: 30px; background: var(--card); text-align: left; position: relative; }
-        .btn-enroll { display: inline-block; margin-top: 20px; padding: 10px 25px; border: 1px solid var(--neon); color: var(--neon); text-decoration: none; font-weight: bold; background: transparent; cursor: pointer; }
-        .btn-enroll:hover { background: var(--neon); color: #000; }
-        .highlight { color: var(--neon); }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* CARDS & UI */
+        .card { 
+            border: 1px solid var(--neon); 
+            padding: 30px; 
+            background: var(--card); 
+            text-align: left; 
+            position: relative; 
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .badge { 
+            position: absolute; 
+            top: -10px; 
+            right: 20px; 
+            background: var(--neon); 
+            color: #000; 
+            padding: 2px 12px; 
+            font-size: 0.7rem; 
+            font-weight: bold; 
+        }
+
+        .highlight { color: var(--neon); text-shadow: 0 0 5px var(--neon); }
+
+        #integrated-terminal { 
+            width: 100%; 
+            max-width: 420px; 
+            height: 550px; 
+            margin: 30px auto; 
+            border: 1px solid var(--neon); 
+            border-radius: 8px; 
+            background: #000;
+        }
+
+        .btn-enroll { 
+            display: inline-block; 
+            margin-top: 25px; 
+            padding: 12px 30px; 
+            border: 1px solid var(--neon); 
+            color: var(--neon); 
+            text-decoration: none; 
+            font-weight: bold; 
+            background: transparent; 
+            cursor: pointer; 
+            transition: 0.3s;
+        }
+
+        .btn-enroll:hover { 
+            background: var(--neon); 
+            color: #000; 
+            box-shadow: 0 0 15px var(--neon);
+        }
+
+        @keyframes fadeIn { 
+            from { opacity: 0; transform: translateY(10px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+
+        footer { 
+            margin-top: 100px; 
+            padding-bottom: 40px; 
+            font-size: 0.7rem; 
+            color: var(--dim); 
+        }
     </style>
 </head>
 <body>
 
-<div class="nav">
-    <a class="nav-link" onclick="show('forge')">Forge</a>
-    <a class="nav-link" onclick="show('lore')">Lore</a>
-    <a class="nav-link" onclick="show('vanguard')">Vanguard</a>
-</div>
-
-<div id="forge" class="section active">
-    <h2 class="highlight">ARCHITECT INTERFACE v3.1</h2>
-    <p>SYSTEM STATUS: <span class="highlight">ONLINE // FORGED IN TERMUX</span></p>
-    <div id="integrated-terminal"></div>
-</div>
-
-<div id="vanguard" class="section">
-    <h2 class="highlight">VANGUARD ROSTER</h2>
-    <div class="card">
-        <p>1. <span class="highlight">THE ARCHITECT</span> [ROOT]</p>
-        <p>2. <span class="highlight">MEX ROBERT</span> [INITIATE]</p>
-        <p>3. <span style="opacity: 0.5;">[ RESERVED FOR YOU ]</span></p>
-        <p>4. <span style="opacity: 0.5;">[ RESERVED FOR YOU ]</span></p>
-        <br>
-        <a href="https://t.me/IceAlphaVanguard_Bot" class="btn-enroll">ENROLL IN THE BYPASS</a>
+    <div class="nav">
+        <a class="nav-link" onclick="show('forge')">The Forge</a>
+        <a class="nav-link" onclick="show('lore')">The Lore</a>
+        <a class="nav-link" onclick="show('vanguard')">Vanguard</a>
     </div>
-</div>
 
-<script>
-    function show(id) {
-        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
-    }
-</script>
+    <div id="forge" class="section active">
+        <h2 class="highlight">ARCHITECT INTERFACE v3.2</h2>
+        <p>SYSTEM STATUS: <span class="highlight">ONLINE // ENCRYPTED</span></p>
+        <p style="font-size: 0.8rem; color: var(--dim);">ROOT_DIR: termux/projects/vanguard_2040</p>
+        
+        <div id="integrated-terminal"></div>
+        
+        <div class="card" style="margin-top: 40px;">
+            <span class="badge">WALLET</span>
+            <p>TREASURY CORE: <span class="highlight">3KJZZxQ7yYNLqNzsxN33x1V3pav2nRybtXXrBpNm1Zqf</span></p>
+            <p>LIQUIDITY PROTOCOL: <span class="highlight">STABLE</span></p>
+        </div>
+    </div>
+
+    <div id="lore" class="section">
+        <h2 class="highlight">[ DECRYPTED_FILE_2040 ]</h2>
+        <div class="card">
+            <span class="badge">HISTORY</span>
+            <p>In 2026, the central financial grid entered "The Great Freeze." Institutional control strangled the innovators, leaving the masses rugged and paralyzed.</p>
+            <p>From the silence of the Underground, <b>The Architect</b> emerged. Using only the tools of the resistance—Termux, Solana, and Cloud Automation—we built the **Bypass Protocol**.</p>
+            <p class="highlight">> We do not ask for permission. We code our own freedom.</p>
+        </div>
+        <div class="card">
+            <span class="badge">MISSION</span>
+            <p>The $ICE token is more than an asset. It is your key to the 2040 School. Here, we teach you to build your own weapons, run your own nodes, and survive the winter.</p>
+        </div>
+    </div>
+
+    <div id="vanguard" class="section">
+        <h2 class="highlight">VANGUARD ROSTER</h2>
+        <div class="card">
+            <span class="badge">ACTIVE INITIATES</span>
+            <p>01. <span class="highlight">THE ARCHITECT</span> [ROOT]</p>
+            <p>02. <span class="highlight">MEX ROBERT</span> [INITIATE]</p>
+            <p>03. <span style="opacity: 0.4;">[ RESERVED FOR YOU ]</span></p>
+            <p>04. <span style="opacity: 0.4;">[ RESERVED FOR YOU ]</span></p>
+            <p>05. <span style="opacity: 0.4;">[ RESERVED FOR YOU ]</span></p>
+            <p>06. <span style="opacity: 0.4;">[ RESERVED FOR YOU ]</span></p>
+            <p>07. <span style="opacity: 0.4;">[ RESERVED FOR YOU ]</span></p>
+            <p>08. <span style="opacity: 0.4;">[ RESERVED FOR YOU ]</span></p>
+            <p>09. <span style="opacity: 0.4;">[ RESERVED FOR YOU ]</span></p>
+            <p>10. <span style="opacity: 0.4;">[ RESERVED FOR YOU ]</span></p>
+            
+            <br>
+            <center>
+                <a href="https://t.me/IceAlphaVanguard_Bot" target="_blank" class="btn-enroll">ENROLL IN THE BYPASS</a>
+            </center>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2040 VANGUARD UNDERGROUND // BYPASS_ACTIVE
+    </footer>
+
+    <script>
+        // TAB SWITCHING LOGIC
+        function show(id) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+        }
+
+        // JUPITER TERMINAL INITIALIZATION
+        window.Jupiter.init({
+            displayMode: "integrated",
+            integratedTargetId: "integrated-terminal",
+            endpoint: "https://mainnet.helius-rpc.com/?api-key=91d5e3ce-6390-4096-8195-b988ed14400d",
+            strictTokenList: false,
+            formProps: {
+                fixedOutputMint: true,
+                initialOutputMint: "5YwuwRWPz2Mru3kPvUYpT1u4f1KwwbeD1E3JrMpSY7KE",
+            },
+        });
+    </script>
 </body>
 </html>

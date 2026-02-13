@@ -6,95 +6,21 @@
     <title>ICE-ALPHA 2040 | THE FORGE</title>
     <script src="https://terminal.jup.ag/main-v3.js" data-preload></script>
     <style>
-        :root {
-            --neon-blue: #00f2ff;
-            --deep-black: #050505;
-            --ice-white: #e0f7fa;
-        }
-
-        body {
-            background-color: var(--deep-black);
-            color: var(--ice-white);
-            font-family: 'Courier New', Courier, monospace;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-        }
-
-        .header {
-            text-align: center;
-            border-bottom: 2px solid var(--neon-blue);
-            padding-bottom: 20px;
-            margin-bottom: 30px;
-            width: 100%;
-            max-width: 800px;
-        }
-
-        h1 {
-            color: var(--neon-blue);
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            text-shadow: 0 0 10px var(--neon-blue);
-        }
-
-        .stat-box {
-            border: 1px solid var(--neon-blue);
-            padding: 15px;
-            margin-bottom: 20px;
-            background: rgba(0, 242, 255, 0.05);
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-        }
-
-        #integrated-terminal {
-            width: 100%;
-            max-width: 420px;
-            height: 580px;
-            border: 1px solid var(--neon-blue);
-            border-radius: 12px;
-            background: #131722;
-        }
-
-        .footer {
-            margin-top: 40px;
-            font-size: 0.7rem;
-            opacity: 0.5;
-        }
+        body { background: #050505; color: #00f2ff; font-family: 'Courier New', monospace; text-align: center; padding: 20px; }
+        .stat-box { border: 1px solid #00f2ff; padding: 15px; margin-bottom: 20px; background: rgba(0, 242, 255, 0.05); }
+        #integrated-terminal { width: 100%; max-width: 420px; height: 580px; margin: 20px auto; border: 1px solid #00f2ff; border-radius: 12px; }
     </style>
 </head>
 <body>
-
-    <div class="header">
-        <h1>Vanguard 2040</h1>
-        <p>[ ARCHITECT MODE ACTIVE ]</p>
-    </div>
-
-    <div class="stat-box">
-        TREASURY TARGET: 0.014 SOL<br>
-        STATUS: SYNCHRONIZED
-    </div>
-
+    <h1>Vanguard 2040</h1>
+    <div class="stat-box">TREASURY TARGET: 0.014 SOL | BYPASS: ACTIVE</div>
     <div id="integrated-terminal"></div>
-
-    <div class="footer">
-        © 2040 Underground School | Secure Solana Connection
-    </div>
-
     <script>
         window.Jupiter.init({
             displayMode: "integrated",
             integratedTargetId: "integrated-terminal",
             endpoint: "https://mainnet.helius-rpc.com/?api-key=91d5e3ce-6390-4096-8195-b988ed14400d",
-            strictTokenList: false,
-            formProps: {
-                fixedOutputMint: true,
-                initialOutputMint: "5YwuwRWPz2Mru3kPvUYpT1u4f1KwwbeD1E3JrMpSY7KE",
-            },
+            formProps: { fixedOutputMint: true, initialOutputMint: "5YwuwRWPz2Mru3kPvUYpT1u4f1KwwbeD1E3JrMpSY7KE" }
         });
     </script>
 </body>

@@ -1,18 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>ICE-ALPHA 2040 | THE FORGE</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICE-ALPHA 2040 | THE LORE</title>
     <script src="https://terminal.jup.ag/main-v3.js" data-preload></script>
     <style>
-        body { background: #050505; color: #00f2ff; font-family: 'Courier New', monospace; text-align: center; padding: 20px; }
-        .stat-box { border: 1px solid #00f2ff; padding: 15px; margin: 20px auto; max-width: 400px; background: rgba(0,242,255,0.05); }
-        #integrated-terminal { width: 100%; max-width: 420px; height: 580px; margin: 20px auto; border: 1px solid #00f2ff; border-radius: 12px; }
+        :root { --neon: #00f2ff; --bg: #050505; }
+        body { background: var(--bg); color: #fff; font-family: 'Courier New', monospace; padding: 20px; text-align: center; }
+        .lore-section { max-width: 700px; margin: 40px auto; text-align: left; border-left: 2px solid var(--neon); padding-left: 20px; line-height: 1.6; }
+        .highlight { color: var(--neon); font-weight: bold; }
+        .stat-bar { border: 1px solid var(--neon); padding: 10px; margin: 20px 0; display: inline-block; }
+        #integrated-terminal { width: 100%; max-width: 420px; height: 560px; margin: 20px auto; border: 1px solid var(--neon); border-radius: 12px; }
     </style>
 </head>
 <body>
-    <h1>Vanguard 2040</h1>
-    <div class="stat-box">NEW TOKEN DETECTED | TREASURY WATCH ACTIVE</div>
+    <h1>VANGUARD 2040: THE BYPASS</h1>
+    
+    <div class="stat-bar">MISSION: PROTOCOL 0.014 SOL</div>
+
+    <div class="lore-section">
+        <h3>[ TRANSMISSION 001 ]</h3>
+        <p>The year is <span class="highlight">2040</span>. The old financial grids have frozen. The world is rugged, controlled by ghost devs and empty promises.</p>
+        <p>The <span class="highlight">ICE-ALPHA</span> system was forged in the underground to provide a cold, hard bypass. We don't ask for permission. We build the forge.</p>
+        <p>This dashboard is your interface. The <span class="highlight">$ICE</span> token is the fuel. Secure your position before the final freeze.</p>
+    </div>
+
     <div id="integrated-terminal"></div>
+
     <script>
         window.Jupiter.init({
             displayMode: "integrated",
